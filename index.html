@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Test de personalidad y estilo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html,body{margin:0;background:#f6f1ec;color:#1e1b18;font-family:Georgia,serif;line-height:1.45}
+main{max-width:520px;margin:0 auto;padding:22px 18px 40px}
+h1{font-size:26px;margin:8px 0}h2{font-size:21px;margin:6px 0 16px}p{color:#6b625b}
+.bar{height:6px;background:#e4d9d0;border-radius:3px;margin:14px 0 22px;overflow:hidden}.bar i{display:block;height:100%;background:#b76e79}
+.o{display:block;width:100%;text-align:left;padding:14px 16px;margin:10px 0;background:#fff;color:#1e1b18;border:1.5px solid #e4d9d0;border-radius:12px;font:inherit;font-size:16px}
+.p{padding:13px 22px;background:#b76e79;color:#fff;border:0;border-radius:12px;font:inherit;font-size:16px}
+.card{background:#fff;border:2px solid #b76e79;border-radius:14px;padding:20px;margin:16px 0;text-align:center}
+.card h2{font-size:30px;margin:4px 0 10px}.card p{color:#1e1b18}
+</style></head><body><main id="app"></main>
+<script>
+var R={
+1:["Serena 🌊","Calmada, elegante y segura de ti. Prefieres lo simple pero con mucha clase."],
+2:["Misteriosa 🌙","Soñadora y con un aire enigmático. Te encantan los detalles que otros no notan."],
+3:["Clásica 🤍","Atemporal y refinada. Lo sencillo y bien hecho siempre te queda perfecto."],
+4:["Aventurera ⭐","Original y llena de energía. Te atreves a salirte de lo común."],
+5:["Moderna 🖤","Discreta y con personalidad. Tu estilo es sencillo pero muy actual."],
+6:["Romántica 🦋","Dulce, femenina y delicada. Ves la belleza en todo."],
+7:["Apasionada ♾️","Intensa y brillante. Cuando algo te importa, es para siempre."]};
+var Q=[
+["¿Qué tono te gusta más?",[["Plateado, frío",{1:2,3:2,7:2}],["Dorado rosado, cálido",{2:2,4:2,5:2,6:2}],["Me gustan los dos",{1:1,2:1,3:1,4:1,5:1,6:1,7:1}]]],
+["¿Qué color te llama más la atención?",[["Azul",{1:3,4:1}],["Negro o gris",{2:3,5:3}],["Blanco o cristalino",{3:2,4:1,6:2,7:2}]]],
+["¿Cómo describirías tu estilo?",[["Minimalista y sencillo",{1:2,3:2,5:2}],["Romántico y dulce",{6:3,7:2}],["Soñador, místico",{2:3,4:2}],["Llamativo, me gusta brillar",{7:2,4:2,6:1}]]],
+["¿Qué símbolo te gusta más?",[["Luna y estrellas",{2:3,4:3}],["Mariposas",{6:4}],["Infinito o corazones",{7:4}],["Ninguno, prefiero algo simple",{1:2,3:2,5:2}]]],
+["¿Qué prefieres en los detalles?",[["Pequeños y discretos",{3:2,5:2,1:1}],["Medianos",{1:1,6:2,7:2}],["Muchos detalles juntos",{2:3,4:3}]]],
+["¿Cuándo sueles arreglarte más?",[["Todos los días",{3:2,5:2,1:2}],["Salidas y eventos",{7:2,4:2,6:2}],["Las dos",{1:1,2:1,3:1,4:1,5:1,6:1,7:1}]]],
+["¿Qué colores usas más en tu ropa?",[["Negros y neutros",{2:2,5:2,1:1}],["Colores claros y pastel",{6:2,3:2,7:1}],["Mucha variedad",{4:2,1:1,7:1}]]]];
+var app=document.getElementById("app"),step=0,s={};
+function intro(){app.innerHTML='<h1>Test de personalidad y estilo ✨</h1><p>Son 7 preguntas rápidas. Contesta lo que más se parezca a ti.</p><button class="p" onclick="start()">Empezar</button>'}
+function start(){step=0;s={1:0,2:0,3:0,4:0,5:0,6:0,7:0};ask()}
+function ask(){var q=Q[step],h='<p>Pregunta '+(step+1)+' de '+Q.length+'</p><div class="bar"><i style="width:'+(step/Q.length*100)+'%"></i></div><h2>'+q[0]+'</h2>';
+for(var i=0;i<q[1].length;i++)h+='<button class="o" onclick="pick('+i+')">'+q[1][i][0]+'</button>';app.innerHTML=h}
+function pick(i){var w=Q[step][1][i][1];for(var k in w)s[k]+=w[k];step++;step<Q.length?ask():done()}
+function done(){var b=1;for(var k=2;k<=7;k++)if(s[k]>s[b])b=k;
+app.innerHTML='<p>Tu resultado es...</p><div class="card"><h2>'+R[b][0]+'</h2><p>'+R[b][1]+'</p></div><p>Compártelo con quien te mandó el test 💌</p><button class="p" onclick="start()">Repetir</button>'}
+intro();
+</script></body></html>
